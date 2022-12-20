@@ -2,36 +2,36 @@
 console.log("working");
 
 // Create the map object with a center and zoom level.
-let map = L.map("mapid").setView([34.0522, -118.2437], 4);
-
-  // Loop throught the cities array and create one marker for each city.
+let map = L.map("mapid").setView([37.6214, -122.3790], 5);
 
 
-  // Get data from cities.js
+// coordinates for each point to be used inthe polyline
+let line = [
+    //SFO
+    [37.6213129, -122.3789554],
+    [30.1974292, -97.6663058],
+    [43.67771760000001, -79.62481969999999],
+    [40.6435529, -73.78211390000001]
+  ];
+
+//create a polyline using the line coordinates and make the line red.
+
+L.polyline(line,
+    {
+        color: "blue",
+        opacity: 0.5,
+        weight: 4,
+        dashArray: 9
+    }).addTo(map);
 
 
-let cityData = cities;
-
-cityData.forEach(city => {
-    
-    console.log(city);
-
-
-    L.circleMarker(city.location, {
-        radius: city.population/100000,
-        color: 'yellow'
-    })
-    .bindPopup("<h2>" + city.city + ", " + city.state + "</h2> <hr> <h3>Population " + city.population + "</h3>")
-    .addTo(map)
-
-});
 
 
 
 
 
 // We create the tile layer that will be the background of our map.
-let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox/streets-v11',
