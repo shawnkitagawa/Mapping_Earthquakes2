@@ -2,6 +2,7 @@
 console.log("working");
 
 // Create the map object with a center and zoom level.
+// Create the map object with a center and zoom level.
 let map = L.map("mapid").setView([37.5, -122.5], 10);
 
 // Add GeoJSON data.
@@ -29,18 +30,26 @@ let sanFranAirport =
 L.geoJSON(sanFranAirport,
     {
         // we turn each feature int a marker on the map.
-        pointToLayer: function(feature, latlng)
-        {
-           // console.log(feature);
+        //pointToLayer: function(feature, latlng)
+        // {
+        //    // console.log(feature);
 
-            console.log(latlng);
-            return L.marker(latlng)
-            .bindPopup("<h2>" + feature.properties.city + "</h2>");
+        //     console.log(latlng);
+        //     return L.marker(latlng)
+        //     .bindPopup("<h2>" + feature.properties.city + "</h2>");
+        // }
+
+        onEachFeature: function(feature, layer)
+        {
+            console.log(layer);
+            layer.bindPopup("<h2>" + "Airport code:" + feature.properties.icao
+             + "</h2> <hr> <h2>" + "Airport name:" + feature.properties.name);
         }
 
 
 
     }).addTo(map);
+
 
 
 
@@ -55,13 +64,13 @@ let line = [
 
 //create a polyline using the line coordinates and make the line red.
 
-// L.polyline(line,
-//     {
-//         color: "blue",
-//         opacity: 0.5,
-//         weight: 4,
-//         dashArray: 9
-//     }).addTo(map);
+L.polyline(line,
+    {
+        color: "blue",
+        opacity: 0.5,
+        weight: 4,
+        dashArray: 9
+    }).addTo(map);
 
 
 
