@@ -18,7 +18,7 @@ let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/sate
 // Create the map object with center, zoom level and default layer.
 let map = L.map('mapid', {
 	center: [40.7, -94.5],
-	zoom: 3,
+	zoom: 2.5,
 	layers: [streets]
 });
 
@@ -30,11 +30,13 @@ let baseMaps = {
 
 // 1. Add a 2nd layer group for the tectonic plate data.
 let allEarthquakes = new L.LayerGroup();
+let tectonicplates = new L.LayerGroup();
 
 
 // 2. Add a reference to the tectonic plates group to the overlays object.
 let overlays = {
-  "Earthquakes": allEarthquakes
+  "Earthquakes": allEarthquakes,
+  "tectonicplates": tectonicplates
 };
 
 // Then we add a control to the map that will allow the user to change which
@@ -138,47 +140,23 @@ legend.onAdd = function() {
 
   // Finally, we our legend to the map.
   legend.addTo(map);
-});
 
-//   // url = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"
-//   // let tectonicplates = new L.LayerGroup();
-
-//   // let overlay =
-//   // {
-//   //   "tectonicplates": tectonicplates
-//   // }
+  url = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"
 
 
-//   // // 3. Use d3.json to make a call to get our Tectonic Plate geoJSON data.
-//   // d3.json(url).then(function(data) 
-//   // {
+  // 3. Use d3.json to make a call to get our Tectonic Plate geoJSON data.
+  d3.json(url).then(function(data) 
+  {
+    L.geoJSON(data,
+      {
+        color: 'red',
+        width: 0.5
+      }).addTo(tectonicplates)
 
-//   //   function styling(feautre)
-//   //   {
-//   //     return 
-//   //     {
-//   //     color:'red'
-//   //     };
-
-
-//   //   }
-
-
-//   //   L.geoJSON(data,
-//   //     {
-
-
-
-
-
-
-
-//   //     }).addTo(tectonicplates)
-
-//   //   tectonicplates.addTO(map);
+    tectonicplates.addTo(map);
 
     
-//   // });
-// });
+  });
+});
 
-// console.log("hello")
+console.log("hello")
